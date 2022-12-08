@@ -1,0 +1,70 @@
+<app-page-header [heading]="'Manage Products'" [icon]="'fa-table'"></app-page-header>
+<!--<div class="card-header">Products</div>-->
+<div class="container mat-elevation-z8">
+  <table mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>#</th>
+      <td mat-cell *matCellDef="let product" >{{product.id}}</td>
+    </ng-container>
+    <ng-container matColumnDef="providerid">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Provider ID</th>
+      <td mat-cell *matCellDef="let product" >{{product.providerid}}</td>
+    </ng-container>
+    <ng-container matColumnDef="createdon">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Created On</th>
+      <td mat-cell *matCellDef="let product" >{{product.createdon.toLocaleString()}}</td>
+    </ng-container>
+    <ng-container matColumnDef="lastupdate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Update</th>
+      <td mat-cell *matCellDef="let product" >{{product.lastupdate.toLocaleString()}}</td>
+    </ng-container>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Product Name</th>
+      <td mat-cell *matCellDef="let product" >{{product.name}}</td>
+    </ng-container>
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Description</th>
+      <td mat-cell *matCellDef="let product" >{{product.description}}</td>
+    </ng-container>
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Price</th>
+      <td mat-cell *matCellDef="let product" >{{product.price | currency}}</td>
+    </ng-container>
+    <ng-container matColumnDef="number">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Amount</th>
+      <td mat-cell *matCellDef="let product" >{{product.number}}</td>
+    </ng-container>
+    <ng-container matColumnDef="tags">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Tags</th>
+      <td mat-cell *matCellDef="let product" >{{product.tags}}</td>
+    </ng-container>
+    <ng-container matColumnDef="pictures">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Pictures</th>
+      <td mat-cell *matCellDef="let product" >{{product.pictures}}</td>
+    </ng-container>
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+      <td mat-cell *matCellDef="let product" >{{product.status}}</td>
+    </ng-container>
+    <ng-container matColumnDef="options">
+      <th mat-header-cell *matHeaderCellDef>
+        Options
+        <button mat-icon-button color="primary" (click)="addNew()">
+          <mat-icon aria-label="Add">add</mat-icon>
+        </button>
+      </th>
+      <td mat-cell *matCellDef="let product" >
+        <button mat-icon-button color="primary" (click)="editProd(product.id, product.providerid, product.createdon, product.lastupdate, product.name, product.description, product.price, product.number, product.tags, product.pictures, product.status)"><mat-icon aria-label="Edit">edit</mat-icon></button>
+        <button mat-icon-button color="accent" (click)="deleteProd(product.id, product.providerid, product.createdon, product.lastupdate, product.name, product.description, product.price, product.number, product.tags, product.pictures, product.status)"><mat-icon aria-label="Delete">delete</mat-icon></button>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let product; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator #paginator
+                 [length]="dataSource?.filteredData.length"
+                 [pageIndex]="0"
+                 [pageSize]="10"
+                 [pageSizeOptions]="[5, 10, 25, 100]">
+  </mat-paginator>
+</div>
